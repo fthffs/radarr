@@ -1,0 +1,5 @@
+FROM alpine:3.20
+
+ARG arch=x64
+ARG uid=1000
+ARG gid=1000
