@@ -2,7 +2,7 @@
 
 radarr() {
   radarr_url="https://radarr.servarr.com/v1/update/master/changes?runtime=netcore&os=linux"
-  new_version="$(curl -ssl ${radarr_url} | jq '.[0].version' -r)"
+  new_version="$(curl -sSL "${radarr_url}" | jq '.[0].version' -r)"
 
   if [ "${new_version}" ]; then
     sed -i "s/radarr_version=.*/radarr_version=${new_version}/" radarr/Dockerfile
@@ -21,7 +21,7 @@ radarr() {
 sonarr() {
   sonarr_url="https://services.sonarr.tv/v1/releases"
   sonarr_channel="v4-stable"
-  new_version=$(curl -ssl ${sonarr_url} | jq -r "first(.[] | select(.releasechannel==\"${sonarr_channel}\") | .version)")
+  new_version=$(curl -sSL ${sonarr_url} | jq -r "first(.[] | select(.releasechannel==\"${sonarr_channel}\") | .version)")
 
   if [ "${new_version}" ]; then
     sed -i "s/sonarr_version=.*/sonarr_version=${new_version}/" sonarr/Dockerfile
@@ -39,7 +39,7 @@ sonarr() {
 
 prowlarr() {
   prowlarr_url="https://prowlarr.servarr.com/v1/update/master/changes?os=linux&runtime=netcore"
-  new_version="curl -ssl ${prowlarr_url} | jq '.[0].version' -r"
+  new_version="$(curl -sSL "${prowlarr_url}" | jq '.[0].version' -r)"
 
   if [ "${new_version}" ]; then
     sed -i "s/PROWLARR_VERSION=.*/PROWLARR_VERSION=${new_version}/" prowlarr/Dockerfile
