@@ -1,7 +1,7 @@
 # Build
 FROM debian:12.7-slim as builder
 
-ARG SONARR_VERSION=4.0.9.2244
+ARG SONARR_VERSION=4.0.10.2544
 
 RUN set -eux; \
   apt-get update; \
