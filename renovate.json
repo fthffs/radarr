@@ -11,18 +11,16 @@
     {
       "fileMatch": ["Dockerfile$"],
       "matchStrings": [
-        "ARG (RADARR|SONARR|PROWLARR|BAZARR|QBITTORRENT)_VERSION=[\"']?(?<currentValue>.+?)[\"']?\\s+"
+        "ARG RADARR_VERSION=[\"']?(?<currentValue>.+?)[\"']?\\s+"
       ],
       "datasourceTemplate": "github-releases",
-      "depNameTemplate": "(RADARR|SONARR|PROWLARR|BAZARR|QBITTORRENT)/(RADARR|SONARR|PROWLARR|BAZARR|QBITTORRENT)"
+      "depNameTemplate": "Radarr/Radarr"
     }
   ],
   "packageRules": [
     {
       "matchDatasources": ["github-releases"],
-      "matchDepNames": [
-        "(RADARR|SONARR|PROWLARR|BAZARR|QBITTORRENT)/(RADARR|SONARR|PROWLARR|BAZARR|QBITTORRENT)"
-      ],
+      "matchDepNames": ["Radarr/Radarr)"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
     }
