@@ -57,7 +57,7 @@ prowlarr() {
 
 qbittorrent() {
   qbittorrent_url="https://api.github.com/repos/qbittorrent/qBittorrent/tags"
-  local new_version="$(curl -SsL ${qbittorrent_url} | jq -r -c '.[] | .name' | grep -iv 'rc\|beta\|alpha' | head -n 1)"
+  local new_version="$(curl -SsL ${qbittorrent_url} | jq -r -c '.[] | .name' | grep -iv 'rc\|beta\|alpha' | head -n 1 | sed 's/release-//')"
 
   if [ "${new_version}" ]; then
     sed -i "s/QBT_VERSION=.*/QBT_VERSION=${new_version}/" qbittorrent/Dockerfile
