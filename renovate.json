@@ -20,7 +20,7 @@
   "packageRules": [
     {
       "matchDatasources": ["github-releases"],
-      "matchDepNames": ["Radarr/Radarr)"],
+      "matchDepNames": ["Radarr/Radarr"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
     }
