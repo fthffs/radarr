@@ -13,6 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Test if this works
-      run: run: |
+      run: |
         version="$(grep -o -m 1 'RADARR_VERSION=.*' Dockerfile | awk -F '=' '{print $2}')"
         echo $version
