@@ -13,13 +13,13 @@
       "matchStrings": [
         "ARG RADARR_VERSION=[\"']?(?<currentValue>.+?)[\"']?\\s+"
       ],
-      "datasourceTemplate": "github-releases",
+      "datasourceTemplate": "github-tags",
       "depNameTemplate": "Radarr/Radarr"
     }
   ],
   "packageRules": [
     {
-      "matchDatasources": ["github-releases"],
+      "matchDatasources": ["github-tags"],
       "matchDepNames": ["Radarr/Radarr"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
