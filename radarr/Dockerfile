@@ -12,7 +12,7 @@ RUN set -eux; \
   tzdata ; \
   rm -rf /var/lib/apt/lists/* ;\
   mkdir -p /app/radarr; \
-  curl -fsSL "https://github.com/Radarr/Radarr/releases/download/v5.14.0.9383/Radarr.master.${RADARR_VERSION}.linux-core-x64.tar.gz"  \
+  curl -fsSL "https://github.com/Radarr/Radarr/releases/download/v${RADARR_VERSION}/Radarr.master.${RADARR_VERSION}.linux-core-x64.tar.gz"  \
   | tar xzf - -C /app/radarr --strip-components=1; \
   rm -rf /app/radarr/Radarr.Update
 
