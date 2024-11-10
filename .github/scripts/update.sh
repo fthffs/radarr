@@ -1,42 +1,60 @@
 #!/usr/bin/env bash
 
 radarr() {
-  RADARR_URL="https://radarr.servarr.com/v1/update/master/changes?runtime=netcore&os=linux"
+  radarr_url="https://radarr.servarr.com/v1/update/master/changes?runtime=netcore&os=linux"
+  new_version="$(curl -ssl ${radarr_url} | jq '.[0].version' -r)"
 
-  NEW_VERSION="$(curl -sSL ${RADARR_URL} | jq '.[0].version' -r)"
-
-  if [ "${NEW_VERSION}" ]; then
-    sed -i "s/RADARR_VERSION=.*/RADARR_VERSION=${NEW_VERSION}/" radarr/Dockerfile
+  if [ "${new_version}" ]; then
+    sed -i "s/radarr_version=.*/radarr_version=${new_version}/" radarr/Dockerfile
   fi
 
   if output=$(git status --porcelain) && [ -z "$output" ]; then
-    # Working directory clean
-    echo "No new Radarr version available!"
+    # working directory clean
+    echo "no new radarr version available!"
   else
-    # Uncommitted changes
-    git commit -a -m "Updated Radarr to version: ${NEW_VERSION}"
+    # uncommitted changes
+    git commit -a -m "updated radarr to version: ${new_version}"
     git push
   fi
 }
 
 sonarr() {
-  SONARR_URL="https://services.sonarr.tv/v1/releases"
-  SONARR_CHANNEL="v4-stable"
-  NEW_VERSION=$(curl -SsL ${SONARR_URL} | jq -r "first(.[] | select(.releaseChannel==\"${SONARR_CHANNEL}\") | .version)")
+  sonarr_url="https://services.sonarr.tv/v1/releases"
+  sonarr_channel="v4-stable"
+  new_version=$(curl -ssl ${sonarr_url} | jq -r "first(.[] | select(.releasechannel==\"${sonarr_channel}\") | .version)")
 
-  if [ "${NEW_VERSION}" ]; then
-    sed -i "s/SONARR_VERSION=.*/SONARR_VERSION=${NEW_VERSION}/" sonarr/Dockerfile
+  if [ "${new_version}" ]; then
+    sed -i "s/sonarr_version=.*/sonarr_version=${new_version}/" sonarr/Dockerfile
   fi
 
   if output=$(git status --porcelain) && [ -z "$output" ]; then
-    # Working directory clean
-    echo "No new Sonarr version available!"
+    # working directory clean
+    echo "no new sonarr version available!"
   else
-    # Uncommitted changes
-    git commit -a -m "Updated Sonarr to version: ${NEW_VERSION}"
+    # uncommitted changes
+    git commit -a -m "updated sonarr to version: ${new_version}"
+    git push
+  fi
+}
+
+prowlarr() {
+  prowlarr_url="https://prowlarr.servarr.com/v1/update/master/changes?os=linux&runtime=netcore"
+  new_version="curl -ssl ${prowlarr_url} | jq '.[0].version' -r"
+
+  if [ "${new_version}" ]; then
+    sed -i "s/PROWLARR_VERSION=.*/PROWLARR_VERSION=${new_version}/" prowlarr/Dockerfile
+  fi
+
+  if output=$(git status --porcelain) && [ -z "$output" ]; then
+    # working directory clean
+    echo "no new prowlarr version available!"
+  else
+    # uncommitted changes
+    git commit -a -m "updated prowlarr to version: ${new_version}"
     git push
   fi
 }
 
 radarr
 sonarr
+prowlarr
