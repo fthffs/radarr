@@ -1,6 +1,30 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
+  "forkProcessing": "enabled",
+  "baseBranches": ["main"],
+  "rebaseWhen": "behind-base-branch",
+  "dependencyDashboard": false,
+  "labels": ["dependencies"],
+  "commitMessagePrefix": "",
+  "commitMessageTopic": "{{depName}}",
+  "regexManagers": [
+    {
+      "fileMatch": ["Dockerfile$"],
+      "matchStrings": [
+        "ARG (RADARR|SONARR|PROWLARR|BAZARR|QBITTORRENT)_VERSION=[\"']?(?<currentValue>.+?)[\"']?\\s+"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "(RADARR|SONARR|PROWLARR|BAZARR|QBITTORRENT)/(RADARR|SONARR|PROWLARR|BAZARR|QBITTORRENT)"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["github-releases"],
+      "matchDepNames": [
+        "(RADARR|SONARR|PROWLARR|BAZARR|QBITTORRENT)/(RADARR|SONARR|PROWLARR|BAZARR|QBITTORRENT)"
+      ],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    }
   ]
 }
