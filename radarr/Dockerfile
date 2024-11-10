@@ -1,5 +1,5 @@
 # Build
-FROM debian:bookworm-slim as builder
+FROM debian:12.7-slim as builder
 
 RUN set -eux; \
   apt-get update; \
@@ -14,7 +14,7 @@ RUN set -eux; \
   | tar xzf - -C /app/radarr --strip-components=1; \
   rm -rf /app/radarr/Radarr.Update
 
-FROM debian:bookworm-slim
+FROM debian:12.7-slim
 COPY --from=builder --chown=docker:docker /app/radarr /app
 
 # Install binaries
