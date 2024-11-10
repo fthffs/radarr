@@ -1,6 +1,8 @@
 # Build
 FROM debian:12.7-slim as builder
 
+ARG RADARR_VERSION=5.14.0.9383
+
 RUN set -eux; \
   apt-get update; \
   apt-get install -y --no-install-recommends \
@@ -10,7 +12,7 @@ RUN set -eux; \
   tzdata ; \
   rm -rf /var/lib/apt/lists/* ;\
   mkdir -p /app/radarr; \
-  curl -fsSL "https://github.com/Radarr/Radarr/releases/download/v5.14.0.9383/Radarr.master.5.14.0.9383.linux-core-x64.tar.gz"  \
+  curl -fsSL "https://github.com/Radarr/Radarr/releases/download/v5.14.0.9383/Radarr.master.${RADARR_VERSION}.linux-core-x64.tar.gz"  \
   | tar xzf - -C /app/radarr --strip-components=1; \
   rm -rf /app/radarr/Radarr.Update
 
