@@ -19,4 +19,24 @@ radarr() {
   fi
 }
 
+sonarr() {
+  SONARR_URL="https://services.sonarr.tv/v1/releases"
+  SONARR_CHANNEL="v4-stable"
+  NEW_VERSION=$(curl -SsL ${SONARR_URL} | jq -r "first(.[] | select(.releaseChannel==\"${SONARR_CHANNEL}\") | .version)")
+
+  if [ "${NEW_VERSION}" ]; then
+    sed -i "s/SONARR_VERSION=.*/SONARR_VERSION=${NEW_VERSION}/" sonarr/Dockerfile
+  fi
+
+  if output=$(git status --porcelain) && [ -z "$output" ]; then
+    # Working directory clean
+    echo "No new Sonarr version available!"
+  else
+    # Uncommitted changes
+    git commit -a -m "Updated Sonarr to version: ${NEW_VERSION}"
+    git push
+  fi
+}
+
 radarr
+sonarr
