@@ -41,7 +41,7 @@ jobs:
             type=ref,event=branch
             type=sha
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
-            type=pep440,pattern={{version}},value=${RADARR_VERSION}
+            type=match,pattern=\d.\d.\d.*,value=${RADARR_VERSION}
 
       - name: Build and push Docker image
         id: push
