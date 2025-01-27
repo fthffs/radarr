@@ -5,7 +5,7 @@ radarr() {
   local new_version="$(curl -sSL "${radarr_url}" | jq '.[0].version' -r)"
 
   if [ "${new_version}" ]; then
-    sed -i "s/radarr_version=.*/radarr_version=${new_version}/" Dockerfile
+    sed -i "s/RADARR_VERSION=.*/RADARR_VERSION=${new_version}/" Dockerfile
   fi
 
   if output=$(git status --porcelain) && [ -z "$output" ]; then
