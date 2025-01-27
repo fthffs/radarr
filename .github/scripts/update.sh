@@ -9,8 +9,9 @@ radarr() {
   if [ "${new_version}" ]; then
     sed -i "s/radarr_version=.*/radarr_version=${new_version}/" Dockerfile
   fi
+output=$(git status --porcelain)
 
-  if output=$(git status --porcelain) && [ -z "$output" ]; then
+  if [ -z "$output" ]; then
     # working directory clean
     echo "no new radarr version available!"
   else
