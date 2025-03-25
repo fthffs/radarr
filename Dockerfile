@@ -1,7 +1,7 @@
 # Build
 FROM debian:12.7-slim as builder
 
-ARG RADARR_VERSION=5.20.2.9777
+ARG RADARR_VERSION=5.21.1.9799
 
 RUN set -eux; \
   apt-get update; \
