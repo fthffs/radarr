@@ -1,5 +1,5 @@
 # Build
-FROM debian:12.7-slim as builder
+FROM debian:12.11-slim as builder
 
 ARG RADARR_VERSION=5.22.4.9896
 
@@ -16,7 +16,7 @@ RUN set -eux; \
   | tar xzf - -C /app/radarr --strip-components=1; \
   rm -rf /app/radarr/Radarr.Update
 
-FROM debian:12.7-slim
+FROM debian:12.11-slim
 COPY --from=builder --chown=docker:docker /app/radarr /app
 
 # Install binaries
