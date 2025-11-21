@@ -12,7 +12,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Checkout repo, grab radarr version
         id: getVersion
         run: echo "RADARR_VERSION=$(grep -o -m 1 'RADARR_VERSION=.*' Dockerfile | awk -F '=' '{print $2}')" >> $GITHUB_ENV
